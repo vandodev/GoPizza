@@ -1,7 +1,8 @@
 import React from "react";
 import { Container } from "./styles";
 
-import { Input } from "@components/input";
+import { Input } from "@components/Input";
+import { Button } from "@components/Button";
 
 export function SignIn() {
   return (
@@ -13,6 +14,7 @@ export function SignIn() {
         autoCapitalize="none" //Não coloca primeira letra maiúscula
       />
       <Input placeholder="Senha" type="secondary" secureTextEntry />
+      <Button title={"Entrar"} type={"secondary"} />
     </Container>
   );
 }
