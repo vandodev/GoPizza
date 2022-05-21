@@ -23,7 +23,6 @@ export function SignIn() {
 
   function HandleSignIn() {
     signIn(email, password);
-    console.log("oi");
   }
   return (
     <Container>

@@ -34,7 +34,7 @@ export const Title = styled.Text`
 export const Brand = styled.Image.attrs({
   resizeMode: "contain",
 })`
-  height: 340px;
+  height: 250px;
   margin-top: 64px;
   margin-bottom: 32px;
 `;

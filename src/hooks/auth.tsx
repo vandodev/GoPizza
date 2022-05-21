@@ -1,10 +1,18 @@
 import React, { createContext, useContext, ReactNode, useState } from "react";
 import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+
+type User = {
+  id: string;
+  name: string;
+  isAdmin: boolean;
+};
 
 type AuthContextData = {
   signIn: (email: string, password: string) => Promise<void>;
   isLogging: boolean;
+  user: User | null;
 };
 
 type AuthProviderProps = {
@@ -12,7 +20,9 @@ type AuthProviderProps = {
 };
 
 export const AuthContext = createContext({} as AuthContextData);
+
 function AuthProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<User | null>(null);
   const [isLogging, setIsLogging] = useState(false);
 
   async function signIn(email: string, password: string) {
@@ -23,8 +33,30 @@ function AuthProvider({ children }: AuthProviderProps) {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then((account) => {
-        console.log(account);
-        console.log("chegou aqui");
+        firestore()
+          .collection("users")
+          .doc(account.user.uid)
+          .get()
+          .then((profile) => {
+            const { name, isAdmin } = profile.data() as User;
+
+            if (profile.exists) {
+              const userData = {
+                id: account.user.uid,
+                name,
+                isAdmin,
+              };
+
+              console.log(userData);
+              setUser(userData);
+            }
+          })
+          .catch(() =>
+            Alert.alert(
+              "Loguin",
+              "Não foi possivel buscar os dados do perfil do usuário"
+            )
+          );
       })
       .catch((error) => {
         const { code } = error;
