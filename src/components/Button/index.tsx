@@ -1,13 +1,12 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
-import { Container, Title, Loading, TypePros } from "./styles";
+import { Container, Title, Loading, TypeProps } from "./styles";
 
 type Props = RectButtonProps & {
   title: string;
-  type?: TypePros;
+  type?: TypeProps;
   isLoading?: boolean;
 };
-
 export function Button({
   title,
   type = "primary",
