@@ -13,7 +13,6 @@ type AuthProviderProps = {
 
 export const AuthContext = createContext({} as AuthContextData);
 function AuthProvider({ children }: AuthProviderProps) {
-  // function AuthProvider({ children }:AuthProvideProps) {
   const [isLogging, setIsLogging] = useState(false);
 
   async function signIn(email: string, password: string) {

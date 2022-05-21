@@ -10,12 +10,10 @@ import {
 } from "./styles";
 
 import { useAuth } from "@hooks/auth";
-// import { useAuth } from "../../hooks/auth";
 
 import BrandImg from "@assets/brand.png";
 
 import { Input } from "@components/Input";
-// import { Button } from "@components/Button";
 import { Button } from "../../components/Button";
 
 export function SignIn() {
