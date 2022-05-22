@@ -19,7 +19,7 @@ import { Button } from "../../components/Button";
 export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassord] = useState("");
-  const { signIn, isLogging } = useAuth();
+  const { signIn, signOut, isLogging } = useAuth();
 
   function HandleSignIn() {
     signIn(email, password);
@@ -55,6 +55,13 @@ export function SignIn() {
             type={"secondary"}
             onPress={HandleSignIn}
             isLoading={isLogging}
+          />
+          <Button
+            title={"Sair"}
+            type={"secondary"}
+            onPress={signOut}
+            isLoading={isLogging}
+            style={{ marginTop: 20 }}
           />
         </Content>
       </KeyboardAvoidingView>
