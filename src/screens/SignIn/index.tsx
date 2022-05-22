@@ -19,11 +19,16 @@ import { Button } from "../../components/Button";
 export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassord] = useState("");
-  const { signIn, signOut, isLogging } = useAuth();
+  const { signIn, signOut, forgotPassword, isLogging } = useAuth();
 
   function HandleSignIn() {
     signIn(email, password);
   }
+
+  function HandleForgotPassword() {
+    forgotPassword(email);
+  }
+
   return (
     <Container>
       <KeyboardAvoidingView
@@ -46,7 +51,7 @@ export function SignIn() {
             onChangeText={setPassord}
           />
 
-          <ForgotPasswordButton>
+          <ForgotPasswordButton onPress={HandleForgotPassword}>
             <ForgotPasswordLabel>Esqueci a minha senha</ForgotPasswordLabel>
           </ForgotPasswordButton>
 
