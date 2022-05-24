@@ -1,11 +1,16 @@
 import React from "react";
-import { Platform, Text } from "react-native";
-import { Container } from "./styles";
+import { Platform, TouchableOpacity } from "react-native";
+import { Container, Header, Title, DeletLabel } from "./styles";
 
 export function Product() {
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
-      <Text>Produto</Text>
+      <Header>
+        <Title>Cadastrar</Title>
+        <TouchableOpacity>
+          <DeletLabel>Deletar</DeletLabel>
+        </TouchableOpacity>
+      </Header>
     </Container>
   );
 }
