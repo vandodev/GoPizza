@@ -1,16 +1,14 @@
 import styled, { css } from "styled-components/native";
 import { TextInput } from "react-native";
-import theme from "@src/theme";
 
 export const Conteiner = styled.View`
   width: 100%;
-  height: 16px;
+  height: 56px;
   border: 1px solid ${({ theme }) => theme.COLORS.SHAPE};
   border-radius: 12px;
   margin-bottom: 8px;
   flex-direction: row;
   align-items: center;
-  padding: 10px;
 `;
 
 export const Size = styled.View`
