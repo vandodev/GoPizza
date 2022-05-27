@@ -11,6 +11,7 @@ import {
 } from "./styles";
 import { Photo } from "@components/Photo";
 import * as ImagePicker from "expo-image-picker";
+import { InputPrice } from "@components/InputPrice";
 
 export function Product() {
   const [image, setImage] = useState("");
@@ -43,6 +44,9 @@ export function Product() {
           onPress={HandleImagePicker}
         />
       </Upload>
+      <InputPrice size="P" />
+      <InputPrice size="M" />
+      <InputPrice size="G" />
     </Container>
   );
 }
