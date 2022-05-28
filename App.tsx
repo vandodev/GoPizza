@@ -10,18 +10,10 @@ import { DMSerifDisplay_400Regular } from "@expo-google-fonts/dm-serif-display";
 import { AuthProvider } from "@hooks/auth";
 
 // import { SignIn } from "@screens/SignIn";
-import { Product } from "@screens/Product";
+// import { Product } from "@screens/Product";
+import { Home } from "@screens/Home";
 
 export default function App() {
-  // const [fontsLoaded] = useFonts({
-  //   DMSans_400Regular,
-  //   DMSerifDisplay_400Regular,
-  // });
-
-  // if (!fontsLoaded) {
-  //   return <AppLoading />;
-  // }
-
   SplashScreen.preventAutoHideAsync();
   const [fontsLoaded] = useFonts({
     DMSans_400Regular,
@@ -38,7 +30,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="light" translucent backgroundColor="transparent" />
       <AuthProvider>
-        <Product />
+        <Home />
       </AuthProvider>
     </ThemeProvider>
   );
