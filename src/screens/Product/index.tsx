@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ButtonBack } from "@components/ButtonBack";
 import { Platform, TouchableOpacity, ScrollView, Alert } from "react-native";
 import {
   Container,
@@ -14,9 +13,14 @@ import {
   MaxCharacter,
   Label,
 } from "./styles";
-import { Photo } from "@components/Photo";
+
 import * as ImagePicker from "expo-image-picker";
+import firestore from "@react-native-firebase/firestore";
+import storage from "@react-native-firebase/storage";
+
 import { InputPrice } from "@components/InputPrice";
+import { ButtonBack } from "@components/ButtonBack";
+import { Photo } from "@components/Photo";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 
@@ -62,6 +66,40 @@ export function Product() {
         "Informe o preço de todos os tamanhos da pizza"
       );
     }
+    setIsLoading(true);
+
+    // upload da imagem
+    const fileName = new Date().getTime();
+    // criei essa pasta /pizzas/ no storange firebase (antes)
+    const reference = storage().ref(`/pizzas/${fileName}.png`);
+
+    await reference.putFile(image); // e passo a imagem
+
+    // Acesse o firebase storange  em Rules do Storage altere as regras:
+    // : if request.auth != null; - para não me barrar
+    const photo_url = await reference.getDownloadURL();
+
+    // agora salva no banco
+    firestore()
+      .collection("pizzas")
+      .add({
+        name,
+
+        //  name_insensitive altera tudo para minusculo
+        // .trim() remove os espaços em branco
+        name_insensitive: name.toLowerCase().trim(),
+        description,
+        prices_sizes: {
+          p: priceSizeP,
+          m: priceSizeM,
+          g: priceSizeG,
+        },
+        photo_url,
+        //photo_path caminho da foto salva
+        photo_path: reference.fullPath,
+      })
+      .then(() => Alert.alert("Cadastro", "Pizza cadastrada com sucesso"))
+      .catch(() => Alert.alert("Cadastro", "Não foi possivel cadastrar pizza"));
   }
 
   return (
