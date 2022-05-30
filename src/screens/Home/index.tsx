@@ -1,6 +1,14 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { Container, Greeting, GreetingEmoji, GreetingText } from "./style";
+import {
+  Container,
+  Greeting,
+  GreetingEmoji,
+  GreetingText,
+  Title,
+  MenuHeader,
+  MenuItemsNumber,
+} from "./style";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 
@@ -23,6 +31,10 @@ export function Home() {
         </TouchableOpacity>
       </Header>
       <Search onSearch={() => {}} onClear={() => {}} />
+      <MenuHeader>
+        <Title>Cardápio</Title>
+        <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+      </MenuHeader>
     </Container>
   );
 }
