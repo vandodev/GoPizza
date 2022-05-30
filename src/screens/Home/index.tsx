@@ -5,6 +5,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
 
 import { Header } from "../Product/styles";
+import { Search } from "@components/Search";
 import happyEmoji from "@assets/happy.png";
 
 export function Home() {
@@ -21,6 +22,7 @@ export function Home() {
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
+      <Search onSearch={() => {}} onClear={() => {}} />
     </Container>
   );
 }
