@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Alert, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, TouchableOpacity, FlatList } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import {
   Container,
@@ -21,6 +21,8 @@ import { ProductCard, ProductProps } from "@components/ProductCard";
 export function Home() {
   const { COLORS } = useTheme();
 
+  const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+
   function fetchPizzas(value: string) {
     const formattedValue = value.toLocaleLowerCase().trim();
 
@@ -38,7 +40,8 @@ export function Home() {
           };
         }) as ProductProps[];
 
-        console.log(data);
+        // console.log(data);
+        setPizzas(data);
       })
       .catch(() =>
         Alert.alert("Consulta", "Não foi possível realizar a consulta.")
@@ -66,13 +69,16 @@ export function Home() {
         <Title>Cardápio</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
       </MenuHeader>
-      <ProductCard
-        data={{
-          id: "1",
-          name: "pizza",
-          description: "pizza de catupiri com tomate",
-          photo_url:
-            "https://media.istockphoto.com/photos/delicious-vegetarian-pizza-on-white-picture-id1192094401?k=20&m=1192094401&s=612x612&w=0&h=jesvXuPyvqM36GQ5QEvJrL3QZjK6YKsziUUF3ZbW0gw=",
+
+      <FlatList
+        data={pizzas}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ProductCard data={item} />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingTop: 20,
+          paddingBottom: 125,
+          marginHorizontal: 24,
         }}
       />
     </Container>
