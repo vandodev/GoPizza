@@ -22,6 +22,7 @@ export function Home() {
   const { COLORS } = useTheme();
 
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+  const [search, setSearch] = useState("");
 
   function fetchPizzas(value: string) {
     const formattedValue = value.toLocaleLowerCase().trim();
@@ -48,8 +49,17 @@ export function Home() {
       );
   }
 
-  useEffect(() => {
+  function handleSearch() {
+    fetchPizzas(search);
+  }
+
+  function handleSearchClear() {
+    setSearch("");
     fetchPizzas("");
+  }
+
+  useEffect(() => {
+    fetchPizzas(search);
   }, []);
 
   return (
@@ -64,7 +74,12 @@ export function Home() {
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
-      <Search onSearch={() => {}} onClear={() => {}} />
+      <Search
+        onChangeText={setSearch}
+        value={search}
+        onSearch={handleSearch}
+        onClear={handleSearchClear}
+      />
       <MenuHeader>
         <Title>Cardápio</Title>
         <MenuItemsNumber>10 pizzas</MenuItemsNumber>
