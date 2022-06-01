@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Platform, TouchableOpacity, ScrollView, Alert } from "react-native";
 import {
   Container,
@@ -17,6 +17,9 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import firestore from "@react-native-firebase/firestore";
 import storage from "@react-native-firebase/storage";
+import { useRoute } from "@react-navigation/native";
+import { ProductNavigationProps } from "@src/@types/navigation";
+import { ProductProps } from "@components/ProductCard";
 
 import { InputPrice } from "@components/InputPrice";
 import { ButtonBack } from "@components/ButtonBack";
@@ -25,16 +28,19 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 
 export function Product() {
-  // aqui terei onde a foto está armazenada para deletar ela onde ela estiver
   const [photoPath, setPhotoPath] = useState("");
 
-  const [image, setImage] = useState(""); //aqui terei somente o link da foto
+  const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [priceSizeP, setPriceSizeP] = useState("");
   const [priceSizeM, setPriceSizeM] = useState("");
   const [priceSizeG, setPriceSizeG] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const route = useRoute();
+  const { id } = route.params as ProductNavigationProps;
+  console.log("id do produto selecionado", id);
 
   async function HandleImagePicker() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();

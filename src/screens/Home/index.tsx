@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Alert, TouchableOpacity, FlatList } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import {
@@ -20,6 +21,7 @@ import { ProductCard, ProductProps } from "@components/ProductCard";
 
 export function Home() {
   const { COLORS } = useTheme();
+  const navigation = useNavigation();
 
   const [pizzas, setPizzas] = useState<ProductProps[]>([]);
   const [search, setSearch] = useState("");
@@ -56,6 +58,11 @@ export function Home() {
   function handleSearchClear() {
     setSearch("");
     fetchPizzas("");
+    console.log("oi");
+  }
+
+  function handleOpen(id: string) {
+    navigation.navigate("product", { id });
   }
 
   useEffect(() => {
@@ -88,7 +95,9 @@ export function Home() {
       <FlatList
         data={pizzas}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <ProductCard data={item} />}
+        renderItem={({ item }) => (
+          <ProductCard data={item} onPress={() => handleOpen(item.id)} />
+        )}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: 20,
