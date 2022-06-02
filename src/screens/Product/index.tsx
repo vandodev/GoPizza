@@ -27,6 +27,15 @@ import { Photo } from "@components/Photo";
 import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 
+type pizzaResponse = ProductProps & {
+  photo_path: string;
+  prices_sizes: {
+    p: string;
+    m: string;
+    g: string;
+  };
+};
+
 export function Product() {
   const [photoPath, setPhotoPath] = useState("");
 
@@ -40,7 +49,6 @@ export function Product() {
 
   const route = useRoute();
   const { id } = route.params as ProductNavigationProps;
-  console.log("id do produto selecionado", id);
 
   async function HandleImagePicker() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -107,6 +115,25 @@ export function Product() {
       .then(() => Alert.alert("Cadastro", "Pizza cadastrada com sucesso"))
       .catch(() => Alert.alert("Cadastro", "Não foi possivel cadastrar pizza"));
   }
+
+  useEffect(() => {
+    if (id) {
+      firestore()
+        .collection("pizzas")
+        .doc(id)
+        .get()
+        .then((response) => {
+          const product = response.data() as pizzaResponse;
+          setName(product.name);
+          setImage(product.photo_url);
+          setDescription(product.description);
+          setPriceSizeP(product.prices_sizes.p);
+          setPriceSizeM(product.prices_sizes.m);
+          setPriceSizeG(product.prices_sizes.g);
+          setPhotoPath(product.photo_path);
+        });
+    }
+  }, [id]);
 
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
