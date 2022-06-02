@@ -120,8 +120,11 @@ export function Product() {
         //photo_path caminho da foto salva
         photo_path: reference.fullPath,
       })
-      .then(() => Alert.alert("Cadastro", "Pizza cadastrada com sucesso"))
-      .catch(() => Alert.alert("Cadastro", "Não foi possivel cadastrar pizza"));
+      .then(() => navigation.navigate("home"))
+      .catch(() => {
+        setIsLoading(false);
+        Alert.alert("Cadastro", "Não foi possivel cadastrar pizza");
+      });
   }
 
   function handleGoBack() {
