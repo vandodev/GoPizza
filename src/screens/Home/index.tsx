@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useCallback } from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Alert, TouchableOpacity, FlatList } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 import {
@@ -70,9 +70,11 @@ export function Home() {
     navigation.navigate("product", {});
   }
 
-  useEffect(() => {
-    fetchPizzas(search);
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchPizzas(search);
+    }, [])
+  );
 
   return (
     <Container>

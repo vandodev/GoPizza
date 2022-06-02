@@ -128,6 +128,19 @@ export function Product() {
     navigation.goBack();
   }
 
+  function handleDelete() {
+    firestore()
+      .collection("pizzas")
+      .doc(id)
+      .delete()
+      .then(() => {
+        storage()
+          .ref(photoPath)
+          .delete()
+          .then(() => navigation.navigate("home"));
+      });
+  }
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -155,7 +168,7 @@ export function Product() {
           <Title>Cadastrar</Title>
 
           {id ? (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={handleDelete}>
               <DeletLabel>Deletar</DeletLabel>
             </TouchableOpacity>
           ) : (
