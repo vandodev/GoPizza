@@ -4,6 +4,7 @@ import {
   getStatusBarHeight,
   getBottomSpace,
 } from "react-native-iphone-x-helper";
+import { Button } from "@components/Button";
 
 export const Container = styled.View`
   flex: 1;
@@ -64,4 +65,9 @@ export const Title = styled.Text`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
   `}
+`;
+
+export const NewProductButton = styled(Button)`
+  margin: 0 24px;
+  margin-bottom: ${getBottomSpace() + 12}px;
 `;

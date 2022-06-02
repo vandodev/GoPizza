@@ -10,6 +10,7 @@ import {
   Title,
   MenuHeader,
   MenuItemsNumber,
+  NewProductButton,
 } from "./style";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "styled-components/native";
@@ -65,6 +66,10 @@ export function Home() {
     navigation.navigate("product", { id });
   }
 
+  function handleAdd() {
+    navigation.navigate("product", {});
+  }
+
   useEffect(() => {
     fetchPizzas(search);
   }, []);
@@ -104,6 +109,12 @@ export function Home() {
           paddingBottom: 125,
           marginHorizontal: 24,
         }}
+      />
+
+      <NewProductButton
+        title="Cadastrar Pizza"
+        type="secondary"
+        onPress={handleAdd}
       />
     </Container>
   );
