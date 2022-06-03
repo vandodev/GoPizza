@@ -3,6 +3,7 @@ import { FlatList } from "react-native";
 
 import { Container, Header, Title } from "./styles";
 import { OrderCard, OrderProps } from "@components/OrderCard";
+import { ItemSeparator } from "@components/ItemSeparator";
 
 export function Orders() {
   return (
@@ -15,9 +16,10 @@ export function Orders() {
         data={["1", "2", "3"]}
         keyExtractor={(item) => item}
         renderItem={({ item, index }) => <OrderCard index={index} />}
-        numColumns={2} // fica um ao lado do outro
+        numColumns={2}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 10, paddingBottom: 50 }}
+        ItemSeparatorComponent={() => <ItemSeparator />}
       />
     </Container>
   );
