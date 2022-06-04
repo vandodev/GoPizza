@@ -12,7 +12,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // import { SignIn } from "@screens/SignIn";
 // import { Product } from "@screens/Product";
-// import { Orders } from "@screens/Orders";
+import { Orders } from "@screens/Orders";
 import { Routes } from "./src/routes";
 
 export default function App() {
