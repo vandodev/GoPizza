@@ -61,13 +61,6 @@ export function SignIn() {
             onPress={HandleSignIn}
             isLoading={isLogging}
           />
-          <Button
-            title={"Sair"}
-            type={"secondary"}
-            onPress={signOut}
-            isLoading={isLogging}
-            style={{ marginTop: 20 }}
-          />
         </Content>
       </KeyboardAvoidingView>
     </Container>

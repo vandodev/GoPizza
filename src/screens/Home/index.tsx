@@ -20,7 +20,10 @@ import { Search } from "@components/Search";
 import happyEmoji from "@assets/happy.png";
 import { ProductCard, ProductProps } from "@components/ProductCard";
 
+import { useAuth } from "@hooks/auth";
+
 export function Home() {
+  const { signOut, user } = useAuth();
   const { COLORS } = useTheme();
   const navigation = useNavigation();
 
@@ -59,7 +62,6 @@ export function Home() {
   function handleSearchClear() {
     setSearch("");
     fetchPizzas("");
-    console.log("oi");
   }
 
   function handleOpen(id: string) {
@@ -84,7 +86,7 @@ export function Home() {
           <GreetingText>Olá admin</GreetingText>
         </Greeting>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
           <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
