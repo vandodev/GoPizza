@@ -65,7 +65,8 @@ export function Home() {
   }
 
   function handleOpen(id: string) {
-    navigation.navigate("product", { id });
+    const route = user?.isAdmin ? "product" : "order";
+    navigation.navigate(route, { id });
   }
 
   function handleAdd() {
@@ -115,11 +116,16 @@ export function Home() {
         }}
       />
 
-      <NewProductButton
-        title="Cadastrar Pizza"
-        type="secondary"
-        onPress={handleAdd}
-      />
+      {
+        //somente se o user for admin
+        user?.isAdmin && (
+          <NewProductButton
+            title="Cadastrar Pizza"
+            type="secondary"
+            onPress={handleAdd}
+          />
+        )
+      }
     </Container>
   );
 }
