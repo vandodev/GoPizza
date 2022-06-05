@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Platform, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { Platform, ScrollView, Alert } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import firestore from "@react-native-firebase/firestore";
 import {
   Container,
   ContentScroll,
@@ -21,13 +22,39 @@ import { Input } from "@components/Input";
 import { Button } from "@components/Button";
 import { PIZZA_TYPES } from "@utils/pizzaTypes";
 
+import { OrderNavigationProps } from "@src/@types/navigation";
+import { ProductProps } from "@src/components/ProductCard";
+
+type PizzaResponse = ProductProps & {
+  prices_sizes: {
+    [key: string]: number;
+  };
+};
+
 export function Order() {
   const [size, setSize] = useState("");
+  const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
+
   const navigation = useNavigation();
+  const route = useRoute();
+  const { id } = route.params as OrderNavigationProps;
 
   function handleGoBack() {
     navigation.goBack();
   }
+
+  useEffect(() => {
+    if (id) {
+      firestore()
+        .collection("pizzas")
+        .doc(id) //acessando o documento desse id
+        .get()
+        .then((response) => setPizza(response.data() as PizzaResponse))
+        .catch(() =>
+          Alert.alert("Pedido", "Não foi possível carregar o produto.")
+        );
+    }
+  }, [id]);
 
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -35,10 +62,10 @@ export function Order() {
         <Header>
           <ButtonBack onPress={handleGoBack} style={{ marginBottom: 108 }} />
         </Header>
-        <Photo source={{ uri: "https://github.com/vandodev.png" }} />
+        <Photo source={{ uri: pizza.photo_url }} />
 
         <Form>
-          <Title> Nome da pizza </Title>
+          <Title> {pizza.name} </Title>
           <Label> Selecione um tamanho </Label>
           <Sizes>
             {PIZZA_TYPES.map((item) => (
