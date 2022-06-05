@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Platform, ScrollView } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import {
   Container,
   ContentScroll,
@@ -22,11 +23,17 @@ import { PIZZA_TYPES } from "@utils/pizzaTypes";
 
 export function Order() {
   const [size, setSize] = useState("");
+  const navigation = useNavigation();
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ContentScroll>
         <Header>
-          <ButtonBack onPress={() => {}} style={{ marginBottom: 108 }} />
+          <ButtonBack onPress={handleGoBack} style={{ marginBottom: 108 }} />
         </Header>
         <Photo source={{ uri: "https://github.com/vandodev.png" }} />
 
