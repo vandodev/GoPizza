@@ -25,16 +25,21 @@ type Props = TouchableOpacityProps & {
   data: OrderProps;
 };
 
-export function OrderCard({ index, data, ...rest }: Props) {
+// export function OrderCard({ index, data, ...rest } : Props ){
+export function OrderCard({ index, data }: Props) {
   return (
-    <Container index={index} {...rest}>
-      <Image source={{ uri: "http://github.com/vandodev.png" }} />
-      <Name> Nome da pizza </Name>
+    <Container index={index}>
+      {/* <Container index={index} {...rest}> */}
+      <Image source={{ uri: data.image }} />
 
-      <Description>Mesa 10 - Qnt: 5</Description>
+      <Name> {data.pizza} </Name>
 
-      <StatusContainer status="Preparando">
-        <StatusLabel status="Preparando">Preparando</StatusLabel>
+      <Description>
+        Mesa {data.table_number} - Qnt: {data.quantity}
+      </Description>
+
+      <StatusContainer status={data.status}>
+        <StatusLabel status={data.status}>{data.status}</StatusLabel>
       </StatusContainer>
     </Container>
   );
