@@ -25,11 +25,11 @@ type Props = TouchableOpacityProps & {
   data: OrderProps;
 };
 
-// export function OrderCard({ index, data, ...rest } : Props ){
-export function OrderCard({ index, data }: Props) {
+export function OrderCard({ index, data, ...rest }: Props) {
+  // export function OrderCard({ index, data }: Props) {
   return (
-    <Container index={index}>
-      {/* <Container index={index} {...rest}> */}
+    // <Container index={index}>
+    <Container index={index} {...rest}>
       <Image source={{ uri: data.image }} />
 
       <Name> {data.pizza} </Name>
